@@ -1,0 +1,12 @@
+.profile__passport{
+    display: flex;
+    align-items: center;
+    max-width: 700px;
+    overflow-wrap: break-word;
+}
+
+@media screen and (max-width: 645px) {
+    .profile__passport {
+        flex-direction: column;
+    }
+}
