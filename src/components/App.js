@@ -17,11 +17,16 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({})
   const [cards, setCards] = useState([]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleLoginClick() {
+    setIsLoginPopupOpen(true);
   }
 
   function handleEditProfileClick() {
@@ -119,7 +124,7 @@ function App() {
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          <Login />
+          <Login isOpen={isLoginPopupOpen} onClose={closeAllPopups} />
         </div>
       </div>
     </CurrentUserContext.Provider>

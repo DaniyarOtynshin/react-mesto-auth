@@ -1,31 +1,32 @@
+import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-const [login, setLogin] = React.useState('');
-const [password, setPassword] = React.useState('');
+const Login = (props) => {
+    const [login, setLogin] = React.useState('');
+    const [password, setPassword] = React.useState('');
 
-function handleLoginSubmit(e) {
-    e.preventDefault();
-    props.onLogin({
-      login, password
-    });
-    handleClose();
-}
+    function handleLoginSubmit(e) {
+        e.preventDefault();
+        props.onLogin({
+          login, password
+        });
+        handleClose();
+    }
+    
+    function handleClose() {
+        props.onClose()
+        setLogin('');
+        setPassword('');
+    }
+    
+    function handleLogin(e) {
+        setLogin(e.target.value);
+    }
+    
+    function handlePassword(e) {
+        setPassword(e.target.value);
+    }
 
-function handleClose() {
-    props.onClose()
-    setLogin('');
-    setPassword('');
-}
-
-function handleLogin(e) {
-    setLogin(e.target.value);
-}
-
-function handlePassword(e) {
-    setPassword(e.target.value);
-}
-
-const Login = () => {
     return (
         <PopupWithForm name="login" isOpen={props.isOpen} title="Логин" onClose={handleClose} buttonText="Login" onSubmit={handleLoginSubmit}>
             <section className="popup__section">
