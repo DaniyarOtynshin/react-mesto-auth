@@ -2,27 +2,31 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
 const Login = (props) => {
-    const [login, setLogin] = React.useState('');
+    const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
     function handleLoginSubmit(e) {
         e.preventDefault();
-        props.onLogin({
-          login, password
-        });
+        if (!email || !password) {
+            return;
+        } else {
+            props.handleLogin(email, password);
+            setEmail('');
+            setPassword('');
+        }
         handleClose();
     }
-    
+
     function handleClose() {
         props.onClose()
-        setLogin('');
+        setEmail('');
         setPassword('');
     }
-    
+
     function handleLogin(e) {
-        setLogin(e.target.value);
+        setEmail(e.target.value);
     }
-    
+
     function handlePassword(e) {
         setPassword(e.target.value);
     }

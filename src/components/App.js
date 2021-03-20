@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useHistory, useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
 import ImagePopup from './ImagePopup';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import api from '../utils/api';
+import auth from '../utils/auth';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
@@ -14,12 +15,17 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
 
+  const [email, setEmail] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({})
   const [cards, setCards] = useState([]);
+
+  const history = useHistory();
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -63,6 +69,18 @@ function App() {
         closeAllPopups();
       })
       .catch(err => console.error(err))
+  }
+
+  function handleLogin(email, password) {
+    auth.login(email, password)
+      .then(data => {
+        if (data.token) {
+          setEmail(email);
+          setLoggedIn(true);
+          localStorage.setItem('token', data.token);
+          history.push('/')
+        }
+      })
   }
 
   useEffect(() => {
@@ -124,7 +142,7 @@ function App() {
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          <Login isOpen={isLoginPopupOpen} onClose={closeAllPopups} />
+          <Login isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleLogin={handleLogin} />
         </div>
       </div>
     </CurrentUserContext.Provider>
