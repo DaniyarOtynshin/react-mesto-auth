@@ -89,7 +89,7 @@ function App() {
       })
   }
 
-  function handleRegister(email, password) { //!!!
+  function handleRegister(email, password) {
     auth.register(email, password)
       .then(data => {
         if (data._id) {
@@ -144,6 +144,9 @@ function App() {
       <div className="page">
         <div className="page__container">
           <Header />
+          <Route exact path="/">
+            {this.state.loggedIn ? <Redirect to="/ducks" /> : <Redirect to="/login" />}
+          </Route>
           <Main
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}

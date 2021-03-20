@@ -10,15 +10,6 @@ class Auth {
           return Promise.reject(`Что-то пошло не так: ${res.status}`);
       };
 
-    getInitialCards() {
-        return fetch(`${this._url}cards`, {
-            headers: {
-              authorization: this._authorization
-            }
-          })
-        .then((res) => this._checkResponse(res))
-    };
-
     login(email, password) {
         return fetch(`${this._url}/signin`, {
             method: 'POST',
@@ -46,8 +37,7 @@ class Auth {
         })
         .then((res) => this._checkResponse(res))
     };
-
-}
+};
 
 const auth = new Auth('https://auth.nomoreparties.co');
 
