@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-const Login = (props) => {
+const Register = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    function handleLoginSubmit(e) {
+    function handleRegisterSubmit(e) {
         e.preventDefault();
         if (!email || !password) {
             return;
         } else {
-            props.handleLogin(email, password);
+            props.handleRegister(email, password);
             setEmail('');
             setPassword('');
         }
@@ -23,7 +23,7 @@ const Login = (props) => {
         setPassword('');
     }
 
-    function handleEmail(e) {
+    function handleRegister(e) {
         setEmail(e.target.value);
     }
 
@@ -32,9 +32,9 @@ const Login = (props) => {
     }
 
     return (
-        <PopupWithForm name="login" isOpen={props.isOpen} title="Вход" onClose={handleClose} buttonText="Войти" onSubmit={handleLoginSubmit}>
+        <PopupWithForm name="register" isOpen={props.isOpen} title="Регистрация" onClose={handleClose} buttonText="Register" onSubmit={handleRegisterSubmit}>
             <section className="popup__section">
-                <input type="text" minLength="2" maxLength="30" name="email" id="title-input" required placeholder="Почта" className="popup__input" value={email} onChange={handleEmail} />
+                <input type="text" minLength="2" maxLength="30" name="email" id="title-input" required placeholder="Почта" className="popup__input" value={email} onChange={handleRegister} />
                 <span className="popup__input-error" id="title-input-error"></span>
             </section>
             <section className="popup__section">
@@ -45,4 +45,4 @@ const Login = (props) => {
     )
 }
 
-export default Login;
+export default Register;

@@ -10,6 +10,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import Login from './Login';
+import Register from './Register';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
+  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({})
   const [cards, setCards] = useState([]);
 
@@ -33,6 +35,10 @@ function App() {
 
   function handleLoginClick() {
     setIsLoginPopupOpen(true);
+  }
+
+  function handleRegisterClick() {
+    setIsRegisterPopupOpen(true);
   }
 
   function handleEditProfileClick() {
@@ -79,6 +85,15 @@ function App() {
           setLoggedIn(true);
           localStorage.setItem('token', data.token);
           history.push('/')
+        }
+      })
+  }
+
+  function handleRegister(email, password) { //!!!
+    auth.register(email, password)
+      .then(data => {
+        if (data._id) {
+          handleLogin(email, password);
         }
       })
   }
@@ -143,6 +158,7 @@ function App() {
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <Login isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleLogin={handleLogin} />
+          <Register isOpen={isRegisterPopupOpen} onClose={closeAllPopups} handleRegister={handleRegister} />
         </div>
       </div>
     </CurrentUserContext.Provider>
