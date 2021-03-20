@@ -1,4 +1,5 @@
-import { useEffect, useHistory, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Route, Redirect, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
@@ -145,9 +146,10 @@ function App() {
         <div className="page__container">
           <Header />
           <Route exact path="/">
-            {this.state.loggedIn ? <Redirect to="/ducks" /> : <Redirect to="/login" />}
+            {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
           </Route>
-          <Main
+          <Route exact path='/' render={
+            () => <Main
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
@@ -155,13 +157,24 @@ function App() {
             cards={cards}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete} />
+            } />
+          <Route path='sign-in' render={
+            () => <Login
+            isOpen={isLoginPopupOpen}
+            onClose={closeAllPopups}
+            handleLogin={handleLogin} />
+            }/>
+          <Route path='sign-up' render={
+            () => <Register
+            isOpen={isRegisterPopupOpen}
+            onClose={closeAllPopups}
+            handleRegister={handleRegister} />
+            }/>
           <Footer />
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          <Login isOpen={isLoginPopupOpen} onClose={closeAllPopups} handleLogin={handleLogin} />
-          <Register isOpen={isRegisterPopupOpen} onClose={closeAllPopups} handleRegister={handleRegister} />
         </div>
       </div>
     </CurrentUserContext.Provider>
