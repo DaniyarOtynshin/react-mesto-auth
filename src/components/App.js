@@ -28,6 +28,8 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({})
   const [cards, setCards] = useState([]);
 
+
+
   const history = useHistory();
 
   function handleEditAvatarClick() {
@@ -145,32 +147,36 @@ function App() {
       <div className="page">
         <div className="page__container">
           <Header />
-          <Route exact path="/">
-            {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
-          </Route>
-          <Route exact path='/' render={
-            () => <Main
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}
-            onCardClick={handleCardClick}
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete} />
+          <div>
+            <Route exact path="/">
+              {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
+            </Route>
+            <Route exact path='/' render={
+              () => <>
+                <Main
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onCardClick={handleCardClick}
+                  cards={cards}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete} />
+                <Footer />
+              </>
             } />
-          <Route path='sign-in' render={
-            () => <Login
-            isOpen={isLoginPopupOpen}
-            onClose={closeAllPopups}
-            handleLogin={handleLogin} />
-            }/>
-          <Route path='sign-up' render={
-            () => <Register
-            isOpen={isRegisterPopupOpen}
-            onClose={closeAllPopups}
-            handleRegister={handleRegister} />
-            }/>
-          <Footer />
+            <Route path='/sign-in' render={
+              () => <Login
+                isOpen={isLoginPopupOpen}
+                onClose={closeAllPopups}
+                handleLogin={handleLogin} />
+            } />
+            <Route path='/sign-up' render={
+              () => <Register
+                isOpen={isRegisterPopupOpen}
+                onClose={closeAllPopups}
+                handleRegister={handleRegister} />
+            } />
+          </div>
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
