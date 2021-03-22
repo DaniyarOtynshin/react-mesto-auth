@@ -1,4 +1,3 @@
-import { useHistory } from 'react-router';
 import unionPathSuccess from '../images/Union.svg';
 import unionPathReject from '../images/UnionReject.svg';
 
@@ -19,7 +18,6 @@ const InfoTooltip = (props) => {
                 </h1>
             </div>
         </div>
-
     )
 }
 

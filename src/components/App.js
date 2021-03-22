@@ -11,7 +11,6 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import Login from './Login';
 import Register from './Register';
-import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 
 function App() {
@@ -111,8 +110,8 @@ function App() {
     setIsInfooTooltipOpen(false);
   }
 
-  function tokenCheck () {
-    if (localStorage.getItem('token')){
+  function tokenCheck() {
+    if (localStorage.getItem('token')) {
       const token = localStorage.getItem('token');
       auth.getContent(token).then((res) => {
         if (res) {
@@ -123,24 +122,6 @@ function App() {
       })
     }
   };
-
-  useEffect(() => {
-    api.getUserInfo()
-      .then(data => setCurrentUser(data))
-      .catch(err => console.error(err))
-  }, [])
-
-  useEffect(() => {
-    api.getInitialCards()
-      .then(cards => {
-        setCards(cards)
-      })
-      .catch(err => console.error(err))
-  }, []);
-
-  useEffect(() => {
-    tokenCheck()
-  }, []);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -169,6 +150,24 @@ function App() {
       .catch(err => console.error(err))
   }
 
+  useEffect(() => {
+    api.getUserInfo()
+      .then(data => setCurrentUser(data))
+      .catch(err => console.error(err))
+  }, [])
+
+  useEffect(() => {
+    api.getInitialCards()
+      .then(cards => {
+        setCards(cards)
+      })
+      .catch(err => console.error(err))
+  }, []);
+
+  useEffect(() => {
+    tokenCheck()
+  }, []);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -186,16 +185,16 @@ function App() {
               onCardDelete={handleCardDelete}
               component={Main} />
             <Route path='/sign-in' render={() => <Login
-            onLogin={onLogin}
-            isOpen={isInfooTooltipOpen}
-            successRegistration={successRegistration}
-            onClose={onInfooTooltipClose}
+              onLogin={onLogin}
+              isOpen={isInfooTooltipOpen}
+              successRegistration={successRegistration}
+              onClose={onInfooTooltipClose}
             />} />
             <Route path='/sign-up' render={() => <Register
-            onRegister={onRegister}
-            isOpen={isInfooTooltipOpen}
-            successRegistration={successRegistration}
-            onClose={onInfooTooltipClose}
+              onRegister={onRegister}
+              isOpen={isInfooTooltipOpen}
+              successRegistration={successRegistration}
+              onClose={onInfooTooltipClose}
             />} />
           </Switch>
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
