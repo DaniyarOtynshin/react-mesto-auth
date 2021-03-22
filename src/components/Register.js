@@ -9,20 +9,13 @@ const Register = (props) => {
         if (!email || !password) {
             return;
         } else {
-            props.handleRegister(email, password);
+            props.onRegister(password, email);
             setEmail('');
             setPassword('');
         }
-        handleClose();
     }
 
-    function handleClose() {
-        props.onClose()
-        setEmail('');
-        setPassword('');
-    }
-
-    function handleRegister(e) {
+    function handleEmail(e) {
         setEmail(e.target.value);
     }
 
@@ -34,9 +27,9 @@ const Register = (props) => {
         <section className="login">
             <h1 className="login__title">Регистрация</h1>
             <form className="login__form">
-            <input type="url" placeholder="Email" className="login__input"></input>
-            <input type="password" placeholder="Пароль" className="login__input"></input>
-            <button className="login__button">Зарегистрироваться</button>
+                <input type="url" onChange={handleEmail} placeholder="Email" className="login__input"></input>
+                <input type="password" onChange={handlePassword} placeholder="Пароль" className="login__input"></input>
+                <button onClick={handleRegisterSubmit} className="login__button">Зарегистрироваться</button>
             </form>
         </section>
     )

@@ -33,9 +33,9 @@ const Login = (props) => {
         <section className="login">
             <h1 className="login__title">Вход</h1>
             <form className="login__form">
-            <input type="url" placeholder="Email" className="login__input"></input>
-            <input type="password" placeholder="Пароль" className="login__input"></input>
-            <button className="login__button">Войти</button>
+                <input type="url" placeholder="Email" className="login__input"></input>
+                <input type="password" placeholder="Пароль" className="login__input"></input>
+                <button className="login__button">Войти</button>
             </form>
         </section>
     )

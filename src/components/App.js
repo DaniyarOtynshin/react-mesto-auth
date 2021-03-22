@@ -72,8 +72,8 @@ function App() {
       .catch(err => console.error(err))
   }
 
-  function handleLogin(email, password) {
-    auth.login(email, password)
+  function onLogin(password, email) {
+    auth.login(password, email)
       .then(data => {
         if (data.token) {
           setEmail(email);
@@ -82,16 +82,23 @@ function App() {
           history.push('/')
         }
       })
+      .catch(err => console.log(err))
   }
 
-  function handleRegister(email, password) {
-    auth.register(email, password)
+  function onRegister(password, email) {
+    auth.register(password, email)
       .then(data => {
         if (data._id) {
-          handleLogin(email, password);
+          onLogin(password, email);
         }
       })
-  }
+  };
+
+  function tokenCheck () {
+    if (localStorage.getItem('jwt')){
+      const jwt = localStorage.getItem('jwt');
+      
+    }
 
   useEffect(() => {
     api.getUserInfo()
@@ -150,8 +157,8 @@ function App() {
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
               component={Main} />
-            <Route path='/sign-in' render={() => <Login />} />
-            <Route path='/sign-up' render={() => <Register />} />
+            <Route path='/sign-in' onLogin={onLogin} render={() => <Login />} />
+            <Route path='/sign-up' onRegister={onRegister} render={() => <Register />} />
           </Switch>
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />

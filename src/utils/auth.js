@@ -16,10 +16,7 @@ class Auth {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              password: password,
-              email: email
-            })
+            body: JSON.stringify({password, email})
         })
         .then((res) => this._checkResponse(res))
     };
@@ -30,13 +27,23 @@ class Auth {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              password: password,
-              email: email
-            })
+            body: JSON.stringify({password, email})
         })
         .then((res) => this._checkResponse(res))
     };
+
+    getContent = (token) => {
+        return fetch(`${this.url}/users/me`, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          }
+        })
+        .then(res => res.json())
+        .then(data => data)
+      } 
 };
 
 const auth = new Auth('https://auth.nomoreparties.co');
