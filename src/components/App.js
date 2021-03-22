@@ -20,10 +20,12 @@ function App() {
 
   const [email, setEmail] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
+  const [successRegistration, setSuccessRegistration] = useState(false);
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isInfooTooltipOpen, setIsInfooTooltipOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({})
   const [cards, setCards] = useState([]);
 
@@ -72,10 +74,8 @@ function App() {
   }
 
   function onLogin(password, email) {
-    debugger
     auth.login(password, email)
       .then(data => {
-        debugger
         if (data.token) {
           setEmail(email);
           setLoggedIn(true);
@@ -83,17 +83,33 @@ function App() {
           history.push('/')
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        setSuccessRegistration(false);
+        setIsInfooTooltipOpen(true);
+        console.log(err)
+      })
   }
 
   function onRegister(password, email) {
     auth.register(password, email)
       .then(data => {
         if (data.data._id) {
-          onLogin(password, email);
+          setSuccessRegistration(true);
+          setIsInfooTooltipOpen(true);
         }
       })
   };
+
+  function onSignOut() {
+    localStorage.removeItem('token');
+    setLoggedIn(false);
+    history.push('/sign-in');
+  };
+
+  function onInfooTooltipClose() {
+    history.push('/sign-in');
+    setIsInfooTooltipOpen(false);
+  }
 
   function tokenCheck () {
     if (localStorage.getItem('token')){
@@ -157,7 +173,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Header loggedIn={loggedIn} email={email} />
+          <Header loggedIn={loggedIn} email={email} onSignOut={onSignOut} />
           <Switch>
             <ProtectedRoute exact path='/'
               loggedIn={loggedIn}
@@ -169,14 +185,23 @@ function App() {
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
               component={Main} />
-            <Route path='/sign-in' render={() => <Login onLogin={onLogin} />} />
-            <Route path='/sign-up' render={() => <Register onRegister={onRegister} />} />
+            <Route path='/sign-in' render={() => <Login
+            onLogin={onLogin}
+            isOpen={isInfooTooltipOpen}
+            successRegistration={successRegistration}
+            onClose={onInfooTooltipClose}
+            />} />
+            <Route path='/sign-up' render={() => <Register
+            onRegister={onRegister}
+            isOpen={isInfooTooltipOpen}
+            successRegistration={successRegistration}
+            onClose={onInfooTooltipClose}
+            />} />
           </Switch>
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          <InfoTooltip />
         </div>
       </div>
     </CurrentUserContext.Provider>

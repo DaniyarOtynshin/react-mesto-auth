@@ -1,18 +1,19 @@
+import { useHistory } from 'react-router';
 import unionPathSuccess from '../images/Union.svg';
 import unionPathReject from '../images/UnionReject.svg';
 
 const InfoTooltip = (props) => {
     return (
-        <div className="popup">
+        <div className={`popup ${props.isOpen && "popup_active"}`}>
             <div className="popup-infotooltip">
-                <button className="popup__button" />
+                <button className="popup__button" onClick={props.onClose} />
                 <img alt="Успешно!" className="popup-infotooltip__union" src={
-                    props.success
+                    props.successRegistration
                     ? unionPathSuccess
                     : unionPathReject}
                 />
                 <h1 className="popup-infotooltip__text">{
-                    props.success
+                    props.successRegistration
                     ? 'Вы успешно зарегистрировались!'
                     : 'Что-то пошло не так! Попробуйте ещё раз.'}
                 </h1>

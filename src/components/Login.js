@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import InfoTooltip from './InfoTooltip';
 
 const Login = (props) => {
     const [email, setEmail] = useState('');
@@ -30,6 +31,7 @@ const Login = (props) => {
                 <input type="password" onChange={handlePassword} placeholder="Пароль" className="login__input"></input>
                 <button onClick={handleLoginSubmit} className="login__button">Войти</button>
             </form>
+            <InfoTooltip isOpen={props.isOpen} successRegistration={props.successRegistration} onClose={props.onClose} />
         </section>
     )
 }

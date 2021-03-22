@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import InfoTooltip from './InfoTooltip';
 
 const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -8,11 +10,10 @@ const Register = (props) => {
         e.preventDefault();
         if (!email || !password) {
             return;
-        } else {
-            props.onRegister(password, email);
-            setEmail('');
-            setPassword('');
         }
+        props.onRegister(password, email);
+        setEmail('');
+        setPassword('');
     }
 
     function handleEmail(e) {
@@ -29,8 +30,10 @@ const Register = (props) => {
             <form className="login__form">
                 <input type="text" onChange={handleEmail} placeholder="Email" className="login__input"></input>
                 <input type="password" onChange={handlePassword} placeholder="Пароль" className="login__input"></input>
-                <button onClick={handleRegisterSubmit} className="login__button">Зарегистрироваться</button>
+                <button onClick={handleRegisterSubmit} className="login__button login__button_register">Зарегистрироваться</button>
             </form>
+            <Link to="/sign-in" className="login__subtext">Уже зарегистрированы? Войти</Link>
+            <InfoTooltip isOpen={props.isOpen} successRegistration={props.successRegistration} onClose={props.onClose} />
         </section>
     )
 }
