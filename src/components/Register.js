@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PopupWithForm from './PopupWithForm';
 
 const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -32,16 +31,14 @@ const Register = (props) => {
     }
 
     return (
-        <PopupWithForm name="register" isOpen={props.isOpen} title="Регистрация" onClose={handleClose} buttonText="Register" onSubmit={handleRegisterSubmit}>
-            <section className="popup__section">
-                <input type="text" minLength="2" maxLength="30" name="email" id="title-input" required placeholder="Почта" className="popup__input" value={email} onChange={handleRegister} />
-                <span className="popup__input-error" id="title-input-error"></span>
-            </section>
-            <section className="popup__section">
-                <input type="password" name="password" id="link-input" required placeholder="Пароль" className="popup__input" value={password} onChange={handlePassword} />
-                <span className="popup__input-error" id="link-input-error"></span>
-            </section>
-        </PopupWithForm>
+        <section className="login">
+            <h1 className="login__title">Регистрация</h1>
+            <form className="login__form">
+            <input type="url" placeholder="Email" className="login__input"></input>
+            <input type="password" placeholder="Пароль" className="login__input"></input>
+            <button className="login__button">Зарегистрироваться</button>
+            </form>
+        </section>
     )
 }
 

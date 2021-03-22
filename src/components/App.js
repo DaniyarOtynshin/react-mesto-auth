@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
@@ -25,8 +25,6 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
-  const [isRegisterPopupOpen, setIsRegisterPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({})
   const [cards, setCards] = useState([]);
 
@@ -36,14 +34,6 @@ function App() {
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
-  }
-
-  function handleLoginClick() {
-    setIsLoginPopupOpen(true);
-  }
-
-  function handleRegisterClick() {
-    setIsRegisterPopupOpen(true);
   }
 
   function handleEditProfileClick() {
@@ -148,29 +138,21 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Header />
-          <ProtectedRoute exact path='/'
-            loggedIn={loggedIn}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}
-            onCardClick={handleCardClick}
-            cards={cards}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            component={Main} />
-          <Route path='/sign-in' render={
-            () => <Login
-              isOpen={isLoginPopupOpen}
-              onClose={closeAllPopups}
-              handleLogin={handleLogin} />
-          } />
-          <Route path='/sign-up' render={
-            () => <Register
-              isOpen={isRegisterPopupOpen}
-              onClose={closeAllPopups}
-              handleRegister={handleRegister} />
-          } />
+          <Header loggedIn={loggedIn} email={email} />
+          <Switch>
+            <ProtectedRoute exact path='/'
+              loggedIn={loggedIn}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onEditAvatar={handleEditAvatarClick}
+              onCardClick={handleCardClick}
+              cards={cards}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              component={Main} />
+            <Route path='/sign-in' render={() => <Login />} />
+            <Route path='/sign-up' render={() => <Register />} />
+          </Switch>
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />

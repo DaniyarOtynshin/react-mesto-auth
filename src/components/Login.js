@@ -29,7 +29,6 @@ const Login = (props) => {
     function handlePassword(e) {
         setPassword(e.target.value);
     }
-    console.log('login')
     return (
         <section className="login">
             <h1 className="login__title">Вход</h1>
