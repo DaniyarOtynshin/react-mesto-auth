@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Redirect, useHistory } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
@@ -13,6 +13,7 @@ import AddPlacePopup from './AddPlacePopup';
 import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
 
@@ -148,36 +149,28 @@ function App() {
       <div className="page">
         <div className="page__container">
           <Header />
-          <div>
-            <Route exact path="/">
-              {loggedIn ? <Redirect to='/' /> : <Redirect to='/sign-in' />}
-            </Route>
-            <Route exact path='/' render={
-              () => <>
-                <Main
-                  onEditProfile={handleEditProfileClick}
-                  onAddPlace={handleAddPlaceClick}
-                  onEditAvatar={handleEditAvatarClick}
-                  onCardClick={handleCardClick}
-                  cards={cards}
-                  onCardLike={handleCardLike}
-                  onCardDelete={handleCardDelete} />
-                <Footer />
-              </>
-            } />
-            <Route path='/sign-in' render={
-              () => <Login
-                isOpen={isLoginPopupOpen}
-                onClose={closeAllPopups}
-                handleLogin={handleLogin} />
-            } />
-            <Route path='/sign-up' render={
-              () => <Register
-                isOpen={isRegisterPopupOpen}
-                onClose={closeAllPopups}
-                handleRegister={handleRegister} />
-            } />
-          </div>
+          <ProtectedRoute exact path='/'
+            loggedIn={loggedIn}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            cards={cards}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+            component={Main} />
+          <Route path='/sign-in' render={
+            () => <Login
+              isOpen={isLoginPopupOpen}
+              onClose={closeAllPopups}
+              handleLogin={handleLogin} />
+          } />
+          <Route path='/sign-up' render={
+            () => <Register
+              isOpen={isRegisterPopupOpen}
+              onClose={closeAllPopups}
+              handleRegister={handleRegister} />
+          } />
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />

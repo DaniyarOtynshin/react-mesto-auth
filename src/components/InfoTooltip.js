@@ -1,7 +1,7 @@
 import unionPathSuccess from '../images/Union.svg';
 import unionPathReject from '../images/UnionReject.svg';
 
-const InfoTooltip = () => {
+const InfoTooltip = (props) => {
     return (
         <div className="popup popup_active">
             <div className="popup-infotooltip">
