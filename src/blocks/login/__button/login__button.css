@@ -13,3 +13,7 @@
     letter-spacing: 0em;
     margin-bottom: 112px;
 }
+
+.login__button:hover {
+    cursor: pointer;
+}

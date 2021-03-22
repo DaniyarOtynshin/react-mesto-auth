@@ -9,17 +9,10 @@ const Login = (props) => {
         if (!email || !password) {
             return;
         } else {
-            props.handleLogin(email, password);
+            props.onLogin(password, email);
             setEmail('');
             setPassword('');
         }
-        handleClose();
-    }
-
-    function handleClose() {
-        props.onClose()
-        setEmail('');
-        setPassword('');
     }
 
     function handleEmail(e) {
@@ -33,9 +26,9 @@ const Login = (props) => {
         <section className="login">
             <h1 className="login__title">Вход</h1>
             <form className="login__form">
-                <input type="url" placeholder="Email" className="login__input"></input>
-                <input type="password" placeholder="Пароль" className="login__input"></input>
-                <button className="login__button">Войти</button>
+                <input type="text" onChange={handleEmail} placeholder="Email" className="login__input"></input>
+                <input type="password" onChange={handlePassword} placeholder="Пароль" className="login__input"></input>
+                <button onClick={handleLoginSubmit} className="login__button">Войти</button>
             </form>
         </section>
     )

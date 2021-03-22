@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Header from './Header';
-import Footer from './Footer';
 import Main from './Main';
 import ImagePopup from './ImagePopup';
 import CurrentUserContext from '../contexts/CurrentUserContext';
@@ -73,8 +72,10 @@ function App() {
   }
 
   function onLogin(password, email) {
+    debugger
     auth.login(password, email)
       .then(data => {
+        debugger
         if (data.token) {
           setEmail(email);
           setLoggedIn(true);
@@ -88,17 +89,24 @@ function App() {
   function onRegister(password, email) {
     auth.register(password, email)
       .then(data => {
-        if (data._id) {
+        if (data.data._id) {
           onLogin(password, email);
         }
       })
   };
 
   function tokenCheck () {
-    if (localStorage.getItem('jwt')){
-      const jwt = localStorage.getItem('jwt');
-      
+    if (localStorage.getItem('token')){
+      const token = localStorage.getItem('token');
+      auth.getContent(token).then((res) => {
+        if (res) {
+          setLoggedIn(true);
+          setEmail(res.data.email);
+          history.push('/');
+        }
+      })
     }
+  };
 
   useEffect(() => {
     api.getUserInfo()
@@ -112,6 +120,10 @@ function App() {
         setCards(cards)
       })
       .catch(err => console.error(err))
+  }, []);
+
+  useEffect(() => {
+    tokenCheck()
   }, []);
 
   function handleCardLike(card) {
@@ -157,8 +169,8 @@ function App() {
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
               component={Main} />
-            <Route path='/sign-in' onLogin={onLogin} render={() => <Login />} />
-            <Route path='/sign-up' onRegister={onRegister} render={() => <Register />} />
+            <Route path='/sign-in' render={() => <Login onLogin={onLogin} />} />
+            <Route path='/sign-up' render={() => <Register onRegister={onRegister} />} />
           </Switch>
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />

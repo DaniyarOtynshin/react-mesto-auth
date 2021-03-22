@@ -3,7 +3,7 @@ import unionPathReject from '../images/UnionReject.svg';
 
 const InfoTooltip = (props) => {
     return (
-        <div className="popup popup_active">
+        <div className="popup">
             <div className="popup-infotooltip">
                 <button className="popup__button" />
                 <img alt="Успешно!" className="popup-infotooltip__union" src={
