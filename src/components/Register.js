@@ -28,7 +28,7 @@ const Register = (props) => {
         <section className="login">
             <h1 className="login__title">Регистрация</h1>
             <form className="login__form">
-                <input type="text" onChange={handleEmail} placeholder="Email" className="login__input"></input>
+                <input type="text" id="email" onChange={handleEmail} placeholder="Email" className="login__input"></input>
                 <input type="password" onChange={handlePassword} placeholder="Пароль" className="login__input"></input>
                 <button onClick={handleRegisterSubmit} className="login__button login__button_register">Зарегистрироваться</button>
             </form>

@@ -4,8 +4,6 @@ import crossPath from '../images/Cross.svg';
 import Card from './Card';
 import React from 'react';
 import CurrentUserContext from '../contexts/CurrentUserContext';
-import Footer from './Footer';
-
 
 function Main(props) {
 
@@ -46,7 +44,6 @@ function Main(props) {
                     </ul>
                 </section>
             </main>
-            <Footer />
         </>
 
     )

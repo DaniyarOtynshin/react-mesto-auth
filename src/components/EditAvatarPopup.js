@@ -22,8 +22,8 @@ function EditAvatarPopup(props) {
     return (
         <PopupWithForm name="change-photo" isOpen={props.isOpen} title="Обновить аватар" onClose={handleClose} onSubmit={handleSubmit} buttonText="Сохранить">
             <section className="popup__section">
-                <input type="url" name="link" ref={avatarLink} id="link-input" required placeholder="Ссылка на картинку" className="popup__input" />
-                <span className="popup__input-error" id="link-input-error"></span>
+                <input type="url" name="link" ref={avatarLink} id="avatarLink-input" required placeholder="Ссылка на картинку" className="popup__input" />
+                <span className="popup__input-error" id="avatarLink-input-error"></span>
             </section>
         </PopupWithForm>
     )

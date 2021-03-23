@@ -12,6 +12,7 @@ import AddPlacePopup from './AddPlacePopup';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
+import Footer from './Footer';
 
 function App() {
 
@@ -166,7 +167,7 @@ function App() {
 
   useEffect(() => {
     tokenCheck()
-  }, []);
+  });
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -197,6 +198,7 @@ function App() {
               onClose={onInfooTooltipClose}
             />} />
           </Switch>
+          <Footer />
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
