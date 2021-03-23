@@ -8,7 +8,7 @@ function Header(props) {
             <img src={logoPath} alt="логотип" className="header__logo" />
             {props.loggedIn
                 ? <ul className="header__links">
-                    <li className="header__auth">{props.email}</li>
+                    <li className="header__auth header__auth_email">{props.email}</li>
                     <li><button onClick={props.onSignOut} className="header__button">Выйти</button></li>
                 </ul>
                 : <Link

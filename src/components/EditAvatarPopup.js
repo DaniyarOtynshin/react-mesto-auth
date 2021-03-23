@@ -20,7 +20,7 @@ function EditAvatarPopup(props) {
 
     function handleClose() {
         props.onClose()
-        avatarLink.current.value = '';
+        setAvatarLink('');
     }
 
     return (

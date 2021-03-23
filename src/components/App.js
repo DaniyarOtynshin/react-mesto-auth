@@ -26,6 +26,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isInfooTooltipOpen, setIsInfooTooltipOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState({})
   const [cards, setCards] = useState([]);
 
@@ -46,14 +47,16 @@ function App() {
   }
 
   function handleCardClick(card) {
-    setSelectedCard(card)
+    setSelectedCard(card);
+    setIsImagePopupOpen(true);
   }
 
   function closeAllPopups() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard({})
+    setIsImagePopupOpen(false)
+    setTimeout(() => setSelectedCard({}), 1000);
   }
 
   function handleUpdateAvatar(link) {
@@ -202,7 +205,7 @@ function App() {
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          <ImagePopup isOpen={isImagePopupOpen} card={selectedCard} onClose={closeAllPopups} />
         </div>
       </div>
     </CurrentUserContext.Provider>
