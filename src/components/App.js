@@ -178,7 +178,7 @@ function App() {
         <div className="page__container">
           <Header loggedIn={loggedIn} email={email} onSignOut={onSignOut} />
           <Switch>
-            <ProtectedRoute exact path='/'
+            <ProtectedRoute path='/react-mesto-auth/'
               loggedIn={loggedIn}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
