@@ -55,8 +55,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setIsImagePopupOpen(false)
-    setTimeout(() => setSelectedCard({}), 1000)
+    setIsImagePopupOpen(false);
   }
 
   function handleUpdateAvatar(link) {
