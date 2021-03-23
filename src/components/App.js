@@ -56,7 +56,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false)
-    setTimeout(() => setSelectedCard({}), 1000);
+    setTimeout(() => setSelectedCard({}), 1000)
   }
 
   function handleUpdateAvatar(link) {
@@ -178,7 +178,7 @@ function App() {
         <div className="page__container">
           <Header loggedIn={loggedIn} email={email} onSignOut={onSignOut} />
           <Switch>
-            <ProtectedRoute path='/react-mesto-auth/'
+            <ProtectedRoute exact path='/'
               loggedIn={loggedIn}
               onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
