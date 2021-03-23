@@ -32,11 +32,11 @@ function AddPlacePopup(props) {
         <PopupWithForm name="add" isOpen={props.isOpen} title="Новое место" onClose={handleClose} buttonText="Создать" onSubmit={handleAddPlaceSubmit}>
             <section className="popup__section">
                 <input type="text" minLength="2" maxLength="30" name="name" id="title-input" required placeholder="Название" className="popup__input" value={name} onChange={handleName} />
-                <span className="popup__input-error" id="title-input-error"></span>
+                <span className="popup__input-error" id="title-input-error" />
             </section>
             <section className="popup__section">
                 <input type="url" name="link" id="link-input" required placeholder="Ссылка на картинку" className="popup__input" value={link} onChange={handleLink} />
-                <span className="popup__input-error" id="link-input-error"></span>
+                <span className="popup__input-error" id="link-input-error" />
             </section>
         </PopupWithForm>
     )

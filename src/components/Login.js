@@ -27,8 +27,8 @@ const Login = (props) => {
         <section className="login">
             <h1 className="login__title">Вход</h1>
             <form className="login__form">
-                <input type="text" onChange={handleEmail} placeholder="Email" className="login__input"></input>
-                <input type="password" onChange={handlePassword} placeholder="Пароль" className="login__input"></input>
+                <input type="text" onChange={handleEmail} placeholder="Email" className="login__input" />
+                <input type="password" onChange={handlePassword} placeholder="Пароль" className="login__input" />
                 <button onClick={handleLoginSubmit} className="login__button">Войти</button>
             </form>
             <InfoTooltip isOpen={props.isOpen} successRegistration={props.successRegistration} onClose={props.onClose} />
